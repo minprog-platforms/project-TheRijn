@@ -1,0 +1,14 @@
+{% extends 'auctions/layout.html' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <h1>{{ object.title }}</h1>
+
+    <h2>Bids</h2>
+    {% for bid in object.bids.all %}
+
+        {{ bid.user.username }}
+        {{ bid.price }}
+    {% endfor %}
+{% endblock %}

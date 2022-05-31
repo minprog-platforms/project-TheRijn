@@ -1,0 +1,12 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %} Active Listings {% endblock %}
+
+{% block body %}
+    <h2>Active Listings</h2>
+    <div class="row">
+        {% for listing in object_list %}
+            {% include 'auctions/listing-card.html' %}
+        {% endfor %}
+    </div>
+{% endblock %}

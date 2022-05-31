@@ -1,0 +1,13 @@
+<div class="card col-12 col-md-6 col-lg-3">
+    <img src="{{ listing.image_url }}" class="card-img-top" alt="Nope">
+    <div class="card-body">
+        <h5 class="card-title">{{ listing.title }}</h5>
+        <p class="card-text">{{ listing.description }}</p>
+    </div>
+    <div class="card-body">
+        {% for category in listing.categories.all %}
+            <span class="badge bg-secondary text-light">{{ category.name }}</span>
+        {% endfor %}
+    </div>
+    <a href="{% url 'listing' listing.id %}" class="btn btn-link">More…</a>
+</div>
