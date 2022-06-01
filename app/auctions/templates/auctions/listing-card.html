@@ -1,5 +1,8 @@
+{% load static %}
+
+
 <div class="card col-12 col-md-6 col-lg-3">
-    <img src="{{ listing.image_url }}" class="card-img-top" alt="Nope">
+    <img src="{%  static listing.image.name %}" class="card-img-top" alt="Nope">
     <div class="card-body">
         <h5 class="card-title">{{ listing.title }}</h5>
         <p class="card-text">{{ listing.description }}</p>

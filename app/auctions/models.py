@@ -15,17 +15,13 @@ class Listing(models.Model):
     starting_bid = models.DecimalField(
         max_digits=14, decimal_places=2, default=Decimal("0.00")
     )
-    _image_url = models.URLField(blank=True, null=True)
+    image = models.ImageField("Image", upload_to="uploads/", null=True)
     categories = models.ManyToManyField("Category", related_name="listings")
     closed = models.BooleanField(default=False)
 
     @property
     def image_url(self):
         return self._image_url if self._image_url else ""
-
-    @image_url.setter
-    def image_url(self, value):
-        self._image_url = value
 
     def __str__(self):
         return f"{self.title} by {self.user}"

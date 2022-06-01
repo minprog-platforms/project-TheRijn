@@ -1,4 +1,7 @@
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -8,11 +11,9 @@ from django.views.generic import (
     DetailView,
     RedirectView,
     CreateView,
-    FormView,
 )
-from .forms import CategoryForm
 
-from .models import User, Listing
+from .models import User, Listing, Category
 
 
 class IndexView(ListView):
@@ -86,6 +87,30 @@ class ListingPage(DetailView):
     model = Listing
 
 
-class CreateCategoryView(FormView):
-    form_class = CategoryForm
+class CreateCategoryView(CreateView, LoginRequiredMixin):
+    model = Category
+    fields = "__all__"
+    success_url = "/"
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.helper = FormHelper()
+        form.helper.add_input(Submit("submit", "Create"))
+        return form
+
+
+class CreateListingView(CreateView, LoginRequiredMixin):
+    model = Listing
     template_name = "auctions/category_form.html"
+    fields = ["title", "description", "starting_bid", "categories", "image"]
+    success_url = "/"
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.helper = FormHelper()
+        form.helper.add_input(Submit("submit", "Create"))
+        return form
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)

@@ -8,5 +8,6 @@ urlpatterns = [
     path("logout", views.LogoutView.as_view(), name="logout"),
     path("register", views.register, name="register"),
     path("listing/<int:pk>", views.ListingPage.as_view(), name="listing"),
-    path("listing/create", views.CreateCategoryView.as_view(), name="category-create"),
+    path("listing/create", views.CreateListingView.as_view(), name="listing-create"),
+    path("category-create", views.CreateCategoryView.as_view(), name="category-create"),
 ]
